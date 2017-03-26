@@ -18,6 +18,16 @@
                   total_price[i] = data.results[i].total_price.amount + ' ' + data.results[i].total_price.currency;
                   contact[i] = data.results[i].contacts[0].detail;
         }
+        $('#hotelOne').html(( hotel_name[0]))
+        $('#hotelTwo').html(( hotel_name[1]))
+        $('#hotelThree').html(( hotel_name[2]))
+        $('#hotelFour').html(( hotel_name[3]))
+        $('#hotelFive').html(( hotel_name[4]))
+        $('#hotelDescOne').html(( address[0]))
+        $('#hotelDescTwo').html(( address[1]))
+        $('#hotelDescThree').html(( address[2]))
+        $('#hotelDescFour').html(( address[3]))
+        $('#hotelDescFive').html(( address[4]))
     });
     var hotel_details = {
         hotel_name : hotel_name,
@@ -27,19 +37,14 @@
 }
 
     console.log(hotel_details);
-    $('#hotelOne').text(( hotel_name[0]))
-    $('#hotelTwo').text(( hotel_name[1]))
-    $('#hotelThree').text(( hotel_name[2]))
-    $('#hotelFour').text(( hotel_name[3]))
-    $('#hotelFive').text(( hotel_name[4]))
-    $('#hotelDescOne').text(( address[0]))
-    $('#hotelDescTwo').text(( address[1]))
-    $('#hotelDescThree').text(( address[2]))
-    $('#hotelDescFour').text(( address[3]))
-    $('#hotelDescFive').text(( address[4]))
+    
 
           
-    });
+  });
+  
+  window.onload = function() {
+    
+  }
 function postHotel(e,i){
   console.log( e, i, hotel_name[i])
    
@@ -208,10 +213,11 @@ body {
 
 </head>
 <body>
+  <p id="test"></p>
 <div class="container">
     <div class="cards">
         <a class="card" href="#">
-            <span class="card-header" style="background-image: url(http://placeimg.com/400/200/animals);">
+            <span class="card-header" style="background-image:url(static/images/3d54026a59f0b9e5d18804b3d78f5d15.jpeg);">
                 <span class="card-title">
                     <h3 id='hotelOne' onclick="postHotel(event, 0)">This is a title for a card</h3>
                 </span>
@@ -225,7 +231,7 @@ body {
         </a>
 
         <a class="card" href="#">
-            <span class="card-header" style="background-image: url(http://placeimg.com/640/480/nature);">
+            <span class="card-header" style="background-image: url(static/images/Stellina3.jpeg);">
                 <span class="card-title">
                     <h3 id = 'hotelTwo' onclick="postHotel(event, 1)">This is a title for a card</h3>
                 </span>
@@ -239,7 +245,7 @@ body {
         </a>
         
         <a class="card" href="#">
-            <span class="card-header" style="background-image: url(http://placeimg.com/400/400/people)">
+            <span class="card-header" style="background-image: url(static/images/bouganville4-640x480.jpeg)">
                 <span class="card-title">
                     <h3 id = 'hotelThree' onclick="postHotel(event, 2)">This is a title for a card</h3>
                 </span>
@@ -253,7 +259,7 @@ body {
         </a>
 
         <a class="card" href="#">
-            <span class="card-header" style="background-image: url(http://placeimg.com/400/200/tech);">
+            <span class="card-header" style="background-image: url(static/images/Hotel2-640x480.jpeg);">
                 <span class="card-title">
                     <h3 id = 'hotelFour' onclick="postHotel(event, 3)">This is a title for a card</h3>
                 </span>
@@ -267,7 +273,7 @@ body {
         </a>
         
         <a class="card" href="#">
-            <span class="card-header" style="background-image: url(http://placeimg.com/400/200/people);">
+            <span class="card-header" style="background-image: url(static/images/luxury_hotel-wallpaper-640x480.jpg);">
                 <span class="card-title">
                     <h3 id = 'hotelFive' onclick="postHotel(event, 4)">This is a title for a card</h3>
                 </span>
@@ -281,5 +287,8 @@ body {
         </a>
          </div>
 </div>
+<script>
+  
+</script>
 </body>
 </html>
