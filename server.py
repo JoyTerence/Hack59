@@ -54,6 +54,7 @@ def analysis():
   result = db.select(db_instance)
   db.close(db_instance)
   data_dict = {'Hotel Seccy': 'western', 'Leonardo Da Vinci Rome Airport': 'zodiacHotel', 'Hotel Tiber': 'hotel2', 'Golden Tulip Rome Airport  Isola Sacra': 'hotel3', 'Hilton Airport Rome': 'living'}
+
   return render_template('analyse.html', result=result, data_dict=data_dict)
 
 if __name__ == '__main__':
