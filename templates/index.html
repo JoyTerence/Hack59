@@ -1,0 +1,144 @@
+{% block content %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://aframe.io/releases/0.2.0/aframe.js"></script>
+        <script
+        src="https://code.jquery.com/jquery-3.2.1.js"
+        integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+        crossorigin="anonymous"></script>
+ 
+
+    </head>
+    <style>
+      
+    </style>
+    <body>
+      
+      <div id="root" style="position: absolute; z-index: 100"><button id="back">Back</button></div>
+      <div >
+        <a-scene>
+            <a-assets>
+                <img id="texture" src="static/images/texture.jpg">
+                <img id="sky" src="static/images/sky.jpg">
+                <img id="zodiac" src="static/images/zodiac.jpg">
+                <img id="hotel2" src="static/images/hotel2.jpg">
+                <img id="hotel3" src="static/images/hotel3.jpg">
+                <img id="living" src="static/images/living.jpg">
+                <img id="western" src="static/images/western.jpg">
+                <img id="hotelg" src="static/images/{{hotel_name}}.jpg">
+            </a-assets>   
+            
+            <a-box class="planes" color="#FFFFFF" width="1" height="1" depth="1"
+                   position="0 0 0"
+                   scale="1 2.5 1"
+                   src="#texture">
+                <a-animation attribute="rotation" begin="click" repeat="indefinite" to="0 360 0"></a-animation>
+                
+                <a-event name="mouseenter" scale="4 1 6"></a-event>
+            </a-box>
+            <a-curvedimage id="90" src="#texture" height="200.0" radius="90" theta-length="90"
+                           rotation="0 90 0"
+                           scale="0.8 0.8 0.8"
+                           position="0 2 5" 
+                           opacity="0.1">
+            </a-curvedimage>
+            <a-curvedimage id="0" color="#FF0000" height="200.0" radius="90" theta-length="90"
+                          rotation="0 0 0"
+                          scale="0.8 0.8 0.8"
+                          position="0 2 5" 
+                          opacity="0.1">
+            </a-curvedimage>
+            <a-curvedimage id="180" color="black" height="200.0" radius="90" theta-length="90"
+                          rotation="0 180 0"
+                          scale="0.8 0.8 0.8"
+                          position="0 2 5" 
+                          opacity="0.1">
+            </a-curvedimage>
+             <a-curvedimage  id="270" color="green" height="200.0" radius="90" theta-length="90"
+                          rotation="0 270 0"
+                          scale="0.8 0.8 0.8"
+                          position="0 2 5" 
+                          opacity="0.1">
+            </a-curvedimage>
+            
+            <a-sky src="#hotelg"></a-sky>
+            
+            <a-camera position="0 7 5">
+                <a-cursor color="#FF0000">
+            </a-camera>
+        </a-scene>
+      </div>
+        <script>
+          //console.log('dfgdfg',{{data}})
+          let startTime, endTime
+          let hotelname = '{{hotel_name}}'
+          let data = {
+            hotel: hotelname,
+            0: 0,
+            90: 0,
+            180: 0,
+            270: 0
+            }
+            function handlerIn(plane) {
+              startTime = new Date()
+            }
+
+            function handlerOut(plane) {
+              endTime = new Date()
+              var timeDiff = endTime - startTime; //in ms
+              // strip the ms
+              timeDiff /= 1000
+
+              // get seconds
+              var seconds = Math.round(timeDiff % 60);
+              data[plane] += seconds
+              console.log("hover during " + seconds + " sec");
+            }
+            let zero = document.getElementById("0") 
+            zero.addEventListener( 'mouseenter', function (){
+                handlerIn("0")
+            } )
+            zero.addEventListener( 'mouseleave', function (){
+                handlerOut("0")
+                console.log(data)
+            } )
+            let ninty = document.getElementById("90") 
+            ninty.addEventListener( 'mouseenter', function (){
+                handlerIn("90")
+            } )
+            ninty.addEventListener( 'mouseleave', function (){
+                handlerOut("90")
+                console.log(data)
+            } )
+            let oneEighty = document.getElementById("180") 
+            oneEighty.addEventListener( 'mouseenter', function (){
+                handlerIn("180")
+            } )
+            oneEighty.addEventListener( 'mouseleave', function (){
+                handlerOut("180")
+                console.log(data)
+            } )
+            let twoSeventy = document.getElementById("270") 
+            twoSeventy.addEventListener( 'mouseenter', function (){
+                handlerIn("270")
+            } )
+            twoSeventy.addEventListener( 'mouseleave', function (){
+                handlerOut("270")
+                console.log(data)
+            } )
+            
+            $( "#back" ).click(function() {
+              console.log('success')
+              $.ajax({
+                type: "POST",
+                url: 'http://localhost:5000/test',
+                data: {json_data: JSON.stringify(data)},
+                success: console.log('success')
+              });
+            });
+
+        </script>
+    </body>
+</html>
+{% endblock %}

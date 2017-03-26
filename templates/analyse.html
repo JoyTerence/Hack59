@@ -1,0 +1,52 @@
+{% block content %}
+
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+  <!--<div id="chart_div"  style="width: 900px; height: 300px;"><div>-->
+  <div id="chart_div"  style="width: 900px; height: 300px;"><div>
+      
+  <!--<script type="text/javascript">
+    function test_func(data) {
+        console.log(typeof(data));
+        for(i=0 ;i<data.length;i++){
+          console.log(data[0][0],data[0][1])
+        }
+        return data;
+    }
+    test_func({{ resourceCountList|safe }})
+</script>-->
+
+<script type='text/javascript'>//<![CDATA[ 
+ 
+google.load('visualization', '1', {packages: ['charteditor']});
+var chartEditor = null;
+console.log("drawing");
+google.setOnLoadCallback(drawBasic);
+console.log("drawing1", '{{result}}');
+var json =  {{result|safe}} 
+function drawBasic() {
+    //var json_table = new google.visualization.BarChart(document.getElementById('chart_div'));
+  var json_data = new google.visualization.arrayToDataTable((json), 0.6);
+  //json_table.draw(json_data, {showRowNumber: true});
+  
+ var wrapper = new google.visualization.ChartWrapper({
+         'chartType':'BarChart',
+         //'dataSourceUrl':'http://spreadsheets.google.com/tq?key=pCQbetd-CptGXxxQIG7VFIQ&pub=1',
+        
+        'dataTable': json_data
+         //'query':'SELECT A,D WHERE D > 100 ORDER BY D',
+         //'options': {'title':'Population Density (people/km^2)', 'legend':'none'}
+      });
+   chartEditor = new google.visualization.ChartEditor();
+      google.visualization.events.addListener(chartEditor, 'ok', redrawChart);
+      chartEditor.openDialog(wrapper, {});
+}
+ function redrawChart(){
+      chartEditor.getChartWrapper().draw(document.getElementById('chart_div'));
+    }
+      
+//]]>  
+ 
+</script>
+
+
+{% endblock %}

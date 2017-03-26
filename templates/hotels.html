@@ -1,0 +1,285 @@
+
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script>
+  var hotel_name=[];
+   var address= [];
+   var total_price = [];
+   var contact = [];
+    $(document).ready(function() {
+    
+   var url = 'https://api.sandbox.amadeus.com/v1.2/hotels/search-airport?apikey=Mw7kPgByHMNCO4maTb6RAaYNJbijgxWr&location={{airport_code}}&check_in={{check_in}}&check_out={{check_out}}&number_of_results=5';
+   console.log(url)
+   $.get(url, function(data, status){
+            for(i=0;i<data.results.length;i++){
+                  hotel_name[i] = data.results[i].property_name;
+                  address[i] = data.results[i].address.line1 + ',' + data.results[i].address.city +  ',' + data.results[i].address.country;
+                  total_price[i] = data.results[i].total_price.amount + ' ' + data.results[i].total_price.currency;
+                  contact[i] = data.results[i].contacts[0].detail;
+        }
+    });
+    var hotel_details = {
+        hotel_name : hotel_name,
+        address : address,
+        total_price : total_price,
+        contact : contact 
+}
+
+    console.log(hotel_details);
+    $('#hotelOne').text(( hotel_name[0]))
+    $('#hotelTwo').text(( hotel_name[1]))
+    $('#hotelThree').text(( hotel_name[2]))
+    $('#hotelFour').text(( hotel_name[3]))
+    $('#hotelFive').text(( hotel_name[4]))
+    $('#hotelDescOne').text(( address[0]))
+    $('#hotelDescTwo').text(( address[1]))
+    $('#hotelDescThree').text(( address[2]))
+    $('#hotelDescFour').text(( address[3]))
+    $('#hotelDescFive').text(( address[4]))
+
+          
+    });
+function postHotel(e,i){
+  console.log( e, i, hotel_name[i])
+   
+    window.location.href = 'hotel_view?hotel_name='+hotel_name[i];
+}
+   </script>
+   
+<style type="text/css">
+    .container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.cards {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-top: 15px;
+  padding: 1.5%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.card {
+  position: relative;
+  margin-bottom: 30px;
+  padding-bottom: 50px;
+  background: #fefff9;
+  color: #363636;
+  text-decoration: none;
+  -moz-box-shadow: rgba(0, 0, 0, 0.19) 0 0 8px 0;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.19) 0 0 8px 0;
+  box-shadow: rgba(0, 0, 0, 0.19) 0 0 8px 0;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+}
+@media (max-width: 700px) {
+  .card {
+    width: 100%;
+  }
+}
+@media (min-width: 700px) {
+  .card {
+    max-width: 320px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+  }
+  .card:nth-child(even) {
+    margin-right: 0;
+  }
+}
+@media (min-width: 980px) {
+  .card:nth-child(even) {
+    margin-right: 20px;
+  }
+  .card:nth-child(3n) {
+    margin-right: 0;
+  }
+}
+.card span {
+  display: block;
+}
+.card .card-summary {
+  padding: 5% 5% 3% 5%;
+}
+.card .card-header {
+  position: relative;
+  height: 175px;
+  overflow: hidden;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-color: rgba(255, 255, 255, 0.15);
+  background-blend-mode: overlay;
+  -moz-border-radius: 4px 4px 0 0;
+  -webkit-border-radius: 4px;
+  border-radius: 4px 4px 0 0;
+}
+.card .card-header:hover, .card .card-header:focus {
+  background-color: rgba(255, 255, 255, 0);
+}
+.card .card-title {
+  background: rgba(157, 187, 63, 0.85);
+  padding: 3.5% 0 2.5% 0;
+  color: white;
+  font-family: 'Roboto Condensed', sans-serif;
+  text-transform: uppercase;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+.card .card-title h3 {
+  font-size: 1.2em;
+  line-height: 1.2;
+  padding: 0 3.5%;
+  margin: 0;
+}
+.card .card-meta {
+  max-height: 0;
+  overflow: hidden;
+  color: #666;
+  font-size: .78em;
+  text-transform: uppercase;
+  position: absolute;
+  bottom: 5%;
+  padding: 0 5%;
+  -moz-transition-property: max-height;
+  -o-transition-property: max-height;
+  -webkit-transition-property: max-height;
+  transition-property: max-height;
+  -moz-transition-duration: 0.4s;
+  -o-transition-duration: 0.4s;
+  -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+  -moz-transition-timing-function: ease-in-out;
+  -o-transition-timing-function: ease-in-out;
+  -webkit-transition-timing-function: ease-in-out;
+  transition-timing-function: ease-in-out;
+}
+.card:hover, .card:focus {
+  background: white;
+  -moz-box-shadow: rgba(0, 0, 0, 0.45) 0px 0px 20px 0px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.45) 0px 0px 20px 0px;
+  box-shadow: rgba(0, 0, 0, 0.45) 0px 0px 20px 0px;
+}
+.card:hover .card-title, .card:focus .card-title {
+  background: rgba(157, 187, 63, 0.95);
+}
+.card:hover .card-meta, .card:focus .card-meta {
+  max-height: 1em;
+}
+
+img {
+  max-width: 100%;
+}
+
+body {
+  background: #f0f0f0;
+  font-size: 17px;
+  line-height: 1.4;
+  font-family: 'Jaldi', sans-serif;
+}
+
+* {
+  -moz-transition-property: background-color, border-color, box-shadow, color, opacity, text-shadow, -moz-transform;
+  -o-transition-property: background-color, border-color, box-shadow, color, opacity, text-shadow, -o-transform;
+  -webkit-transition-property: background-color, border-color, box-shadow, color, opacity, text-shadow, -webkit-transform;
+  transition-property: background-color, border-color, box-shadow, color, opacity, text-shadow, transform;
+  -moz-transition-duration: 0.2s;
+  -o-transition-duration: 0.2s;
+  -webkit-transition-duration: 0.2s;
+  transition-duration: 0.2s;
+  -moz-transition-timing-function: linear;
+  -o-transition-timing-function: linear;
+  -webkit-transition-timing-function: linear;
+  transition-timing-function: linear;
+}
+
+
+</style>
+
+</head>
+<body>
+<div class="container">
+    <div class="cards">
+        <a class="card" href="#">
+            <span class="card-header" style="background-image: url(http://placeimg.com/400/200/animals);">
+                <span class="card-title">
+                    <h3 id='hotelOne' onclick="postHotel(event, 0)">This is a title for a card</h3>
+                </span>
+            </span>
+            <span class="card-summary" id='hotelDescOne'>
+                A summary will also be present. Usually two to three brief sentences about the content on the detail page.
+            </span>
+            <span class="card-meta">
+                
+            </span>
+        </a>
+
+        <a class="card" href="#">
+            <span class="card-header" style="background-image: url(http://placeimg.com/640/480/nature);">
+                <span class="card-title">
+                    <h3 id = 'hotelTwo' onclick="postHotel(event, 1)">This is a title for a card</h3>
+                </span>
+            </span>
+            <span class="card-summary"id='hotelDescTwo'>
+                Each card is created from an &lt;a&gt; tag so the whole card is linked.
+            </span>
+            <span class="card-meta">
+            
+            </span>
+        </a>
+        
+        <a class="card" href="#">
+            <span class="card-header" style="background-image: url(http://placeimg.com/400/400/people)">
+                <span class="card-title">
+                    <h3 id = 'hotelThree' onclick="postHotel(event, 2)">This is a title for a card</h3>
+                </span>
+            </span>
+            <span class="card-summary" id='hotelDescThree'>
+                Using Flexbox is such a an easy, well supported way for grid-style content, such as cards. The cards height will expand to match the longest item.
+            </span>
+            <span class="card-meta">
+                
+            </span>
+        </a>
+
+        <a class="card" href="#">
+            <span class="card-header" style="background-image: url(http://placeimg.com/400/200/tech);">
+                <span class="card-title">
+                    <h3 id = 'hotelFour' onclick="postHotel(event, 3)">This is a title for a card</h3>
+                </span>
+            </span>
+            <span class="card-summary" id='hotelDescFour'>
+                A summary will also be present. Usually two to three brief sentences about the content on the detail page.
+            </span>
+            <span class="card-meta">
+            
+            </span>
+        </a>
+        
+        <a class="card" href="#">
+            <span class="card-header" style="background-image: url(http://placeimg.com/400/200/people);">
+                <span class="card-title">
+                    <h3 id = 'hotelFive' onclick="postHotel(event, 4)">This is a title for a card</h3>
+                </span>
+            </span>
+            <span class="card-summary" id='hotelDescFive'>
+                Each card is created from an &lt;a&gt; tag so the whole card is linked.
+            </span>
+            <span class="card-meta">
+                
+            </span>
+        </a>
+         </div>
+</div>
+</body>
+</html>
